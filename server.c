@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:10:30 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/13 18:43:45 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/22 17:59:01 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	print(int sig)
 {
-	static int	i = 0;
-	static int	c = 0;
-	
+	static int	i;
+	static int	c;
+
 	if (sig == SIGUSR1)
 		c = (c << 1) | 1;
 	else if (sig == SIGUSR2)
 		c <<= 1;
 	i++;
-	ft_printf("->%i\n", c);
-	if (i == 7)
+	if (i == 8)
 	{
-		ft_printf("=%c", c);
+		write(1, &c, 1);
 		i = 0;
 		c = 0;
 	}
@@ -33,8 +32,8 @@ void	print(int sig)
 
 int	main(void)
 {
-	struct sigaction sig_print;
-	
+	struct sigaction	sig_print;
+
 	sig_print.sa_handler = print;
 	sigemptyset(&sig_print.sa_mask);
 	sigaddset(&sig_print.sa_mask, SIGTERM);
