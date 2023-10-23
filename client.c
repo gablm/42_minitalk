@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:23:55 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/23 17:29:34 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:48:06 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 	if (argc <= 2 || argc > 3)
 		format_error();
 	pid = ft_atoi(argv[1]);
-	if (pid == 0 && ft_strncmp(argv[1], "0", 4))
+	if ((pid == 0 && ft_strncmp(argv[1], "0", 4)) || pid < 0)
 		format_error();
 	i = 0;
 	while (argv[2][i])

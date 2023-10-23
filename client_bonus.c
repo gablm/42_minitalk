@@ -62,7 +62,7 @@ int	main(int argc, char **argv)
 	if (argc <= 2 || argc > 3)
 		format_error();
 	pid = ft_atoi(argv[1]);
-	if (pid == 0 && ft_strncmp(argv[1], "0", 4))
+	if ((pid == 0 && ft_strncmp(argv[1], "0", 4)) || pid < 0)
 		format_error();
 	i = 0;
 	while (argv[2][i])
