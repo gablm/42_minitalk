@@ -46,7 +46,7 @@ void	print(int sig)
 
 void	format_error(void)
 {
-	ft_printf("Wrongly formatted - ./client <pid> <string>");
+	ft_printf("Wrongly formatted - ./client <pid> <string>\n");
 	exit(EXIT_FAILURE);
 }
 

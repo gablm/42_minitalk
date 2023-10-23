@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:23:55 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/23 17:48:06 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:49:47 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	send_char(int pid, unsigned char c)
 
 void	format_error(void)
 {
-	ft_printf("Wrongly formatted - ./client <pid> <string>");
+	ft_printf("Wrongly formatted - ./client <pid> <string>\n");
 	exit(EXIT_FAILURE);
 }
 
