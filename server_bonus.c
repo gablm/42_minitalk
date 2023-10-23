@@ -12,6 +12,14 @@
 
 #include "server.h"
 
+void	send_sig(__pid_t pid, int sig, char *str)
+{
+	if (kill(pid, sig) == -1)
+		ft_printf(
+			"[INFO] It was not possible to send a %s signal to the client\n",
+			str);
+}
+
 void	print(int sig, siginfo_t *si, void *uc)
 {
 	static int	i;
@@ -23,14 +31,13 @@ void	print(int sig, siginfo_t *si, void *uc)
 	else if (sig == SIGUSR2)
 		c <<= 1;
 	i++;
-	kill(si->si_pid, SIGUSR1);
+	send_sig(si->si_pid, SIGUSR1, "SIGUSR1");
 	if (i == 8)
 	{
 		write(1, &c, 1);
 		i = 0;
 		c = 0;
-		kill(si->si_pid, SIGUSR2);
-		return ;
+		send_sig(si->si_pid, SIGUSR2, "SIGUSR2");
 	}
 }
 
@@ -44,7 +51,6 @@ int	main(void)
 	sigaction(SIGUSR2, &sig_print, NULL);
 	ft_printf("%i\n", getpid());
 	while (1)
-	{
-	}
+		pause();
 	return (0);
 }

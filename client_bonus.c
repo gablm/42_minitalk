@@ -12,6 +12,14 @@
 
 #include "client.h"
 
+void	send_sig(__pid_t pid, int sig, char *str)
+{
+	if (kill(pid, sig) == -1)
+		ft_printf(
+			"[INFO] It was not possible to send a %s signal to the server\n",
+			str);
+}
+
 void	send_char(int pid, unsigned char c)
 {
 	int	len;
@@ -20,9 +28,9 @@ void	send_char(int pid, unsigned char c)
 	while (len >= 0)
 	{
 		if (c >> len & 1)
-			kill(pid, SIGUSR1);
+			send_sig(pid, SIGUSR1, "SIGUSR1");
 		else
-			kill(pid, SIGUSR2);
+			send_sig(pid, SIGUSR2, "SIGUSR2");
 		len--;
 		usleep(100);
 	}
@@ -31,15 +39,20 @@ void	send_char(int pid, unsigned char c)
 void	print(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_printf("1!");
+		ft_printf("Bit\n");
 	else if (sig == SIGUSR2)
-		ft_printf("2!\n");
+		ft_printf("Char\n");
+}
+
+void	format_error(void)
+{
+	ft_printf("Wrongly formatted - ./client <pid> <string>");
+	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv)
 {
 	__pid_t				pid;
-	char				*str;
 	int					i;
 	struct sigaction	sig_print;
 
@@ -47,18 +60,15 @@ int	main(int argc, char **argv)
 	sigaction(SIGUSR1, &sig_print, NULL);
 	sigaction(SIGUSR2, &sig_print, NULL);
 	if (argc <= 2 || argc > 3)
-	{
-		ft_printf("Wrongly formatted - ./client <pid> <string>");
-		exit(EXIT_FAILURE);
-	}
+		format_error();
 	pid = ft_atoi(argv[1]);
-	str = argv[2];
+	if (pid == 0 && ft_strncmp(argv[1], "0", 4))
+		format_error();
 	i = 0;
-	while (str[i])
+	while (argv[2][i])
 	{
-		send_char(pid, str[i]);
+		send_char(pid, argv[2][i++]);
 		usleep(100);
-		i++;
 	}
 	return (0);
 }

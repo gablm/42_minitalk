@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:23:55 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/22 17:57:33 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:29:34 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,27 @@ void	send_char(int pid, unsigned char c)
 	}
 }
 
+void	format_error(void)
+{
+	ft_printf("Wrongly formatted - ./client <pid> <string>");
+	exit(EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv)
 {
 	__pid_t	pid;
-	char	*str;
 	int		i;
 
 	if (argc <= 2 || argc > 3)
-	{
-		ft_printf("Wrongly formatted - ./client <pid> <string>");
-		exit(EXIT_FAILURE);
-	}
+		format_error();
 	pid = ft_atoi(argv[1]);
-	str = argv[2];
+	if (pid == 0 && ft_strncmp(argv[1], "0", 4))
+		format_error();
 	i = 0;
-	while (str[i])
+	while (argv[2][i])
 	{
-		send_char(pid, str[i]);
+		send_char(pid, argv[2][i++]);
 		usleep(100);
-		i++;
 	}
 	return (0);
 }
