@@ -39,9 +39,9 @@ void	send_char(int pid, unsigned char c)
 void	print(int sig)
 {
 	if (sig == SIGUSR1)
-		ft_printf("Bit\n");
+		write(1, "bt\n", 3);
 	else if (sig == SIGUSR2)
-		ft_printf("Char\n");
+		write(1, "ch\n", 3);
 }
 
 void	format_error(void)
