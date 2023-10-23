@@ -37,7 +37,7 @@ void	print(int sig, siginfo_t *si, void *uc)
 		write(1, &c, 1);
 		i = 0;
 		c = 0;
-		upause(100);
+		usleep(100);
 		send_sig(si->si_pid, SIGUSR2, "SIGUSR2");
 	}
 }
