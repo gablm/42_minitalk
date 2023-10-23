@@ -39,7 +39,7 @@ void	send_char(int pid, unsigned char c)
 void	print(int sig)
 {
 	if (sig == SIGUSR1)
-		write(1, "bt\n", 3);
+		write(1, "bt!", 3);
 	else if (sig == SIGUSR2)
 		write(1, "ch\n", 3);
 }
