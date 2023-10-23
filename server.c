@@ -37,7 +37,7 @@ int	main(void)
 	sig_print.sa_handler = print;
 	sigaction(SIGUSR1, &sig_print, NULL);
 	sigaction(SIGUSR2, &sig_print, NULL);
-	ft_printf("I'm process %i\nListening now!\n\n", getpid());
+	ft_printf("PID %i\n", getpid());
 	while (1)
 		pause();
 	return (0);

@@ -37,6 +37,7 @@ void	print(int sig, siginfo_t *si, void *uc)
 		write(1, &c, 1);
 		i = 0;
 		c = 0;
+		upause(100);
 		send_sig(si->si_pid, SIGUSR2, "SIGUSR2");
 	}
 }
@@ -49,7 +50,7 @@ int	main(void)
 	sig_print.sa_sigaction = &print;
 	sigaction(SIGUSR1, &sig_print, NULL);
 	sigaction(SIGUSR2, &sig_print, NULL);
-	ft_printf("%i\n", getpid());
+	ft_printf("PID %i\n", getpid());
 	while (1)
 		pause();
 	return (0);
