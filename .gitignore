@@ -1,5 +1,0 @@
-*.o
-server
-client
-.vscode/
-*.a
