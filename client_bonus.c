@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:23:55 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/22 18:43:30 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:26:17 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 void	send_sig(__pid_t pid, int sig, char *str)
 {
 	if (kill(pid, sig) == -1)
-		ft_printf(
-			"[INFO] It was not possible to send a %s signal to the server\n",
-			str);
+	{
+		ft_putstr_fd("[INFO] It was not possible to send a ", 1);
+		ft_putstr_fd(str, 1);
+		ft_putstr_fd(" signal to the server\n", 1);
+	}
 }
 
 void	send_char(int pid, unsigned char c)
@@ -32,7 +34,7 @@ void	send_char(int pid, unsigned char c)
 		else
 			send_sig(pid, SIGUSR2, "SIGUSR2");
 		len--;
-		usleep(100);
+		usleep(256);
 	}
 }
 
@@ -46,7 +48,7 @@ void	print(int sig)
 
 void	format_error(void)
 {
-	ft_printf("Wrongly formatted - ./client <pid> <string>\n");
+	write(1, "Wrongly formatted - ./client <pid> <string>\n", 44);
 	exit(EXIT_FAILURE);
 }
 
@@ -68,7 +70,7 @@ int	main(int argc, char **argv)
 	while (argv[2][i])
 	{
 		send_char(pid, argv[2][i++]);
-		usleep(100);
+		usleep(256);
 	}
 	return (0);
 }

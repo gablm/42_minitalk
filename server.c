@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:10:30 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/22 18:40:52 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:27:58 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ int	main(void)
 	sig_print.sa_handler = print;
 	sigaction(SIGUSR1, &sig_print, NULL);
 	sigaction(SIGUSR2, &sig_print, NULL);
-	ft_printf("PID %i\n", getpid());
+	ft_putstr_fd("PID ", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putstr_fd("\n", 1);
 	while (1)
 		pause();
 	return (0);

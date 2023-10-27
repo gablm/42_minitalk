@@ -6,7 +6,7 @@
 /*   By: gfragoso <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 09:23:55 by gfragoso          #+#    #+#             */
-/*   Updated: 2023/10/23 17:52:23 by gfragoso         ###   ########.fr       */
+/*   Updated: 2023/10/27 14:34:34 by gfragoso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ void	send_char(int pid, unsigned char c)
 		else
 			kill(pid, SIGUSR2);
 		len--;
-		usleep(100);
+		usleep(128);
 	}
 }
 
 void	format_error(void)
 {
-	ft_printf("Wrongly formatted - ./client <pid> <string>\n");
+	write(1, "Wrongly formatted - ./client <pid> <string>\n", 44);
 	exit(EXIT_FAILURE);
 }
 
@@ -48,7 +48,7 @@ int	main(int argc, char **argv)
 	while (argv[2][i])
 	{
 		send_char(pid, argv[2][i++]);
-		usleep(100);
+		usleep(128);
 	}
 	return (0);
 }
